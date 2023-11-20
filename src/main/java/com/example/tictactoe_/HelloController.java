@@ -14,7 +14,15 @@ public class HelloController {
     @FXML
     private Label welcomeText;
     @FXML
-    private Button buttonTest;
+    protected Button top_left;
+    protected Button top_center;
+    protected Button top_right;
+    protected Button mid_left;
+    protected Button mid_center;
+    protected Button mid_right;
+    protected Button bottom_left;
+    protected Button bottom_center;
+    protected Button bottom_right;
     protected boolean turn = true;
     protected int[][] tab;
 
@@ -23,6 +31,16 @@ public class HelloController {
                 {-1, -1, -1},
                 {-1, -1, -1},
                 {-1, -1, -1}};
+
+        top_left.setUserData(new BtnData(0, 0));
+        top_center.setUserData(new BtnData(0, 1));
+        top_right.setUserData(new BtnData(0, 2));
+        mid_left.setUserData(new BtnData(1, 0));
+        mid_center.setUserData(new BtnData(1, 1));
+        mid_right.setUserData(new BtnData(1, 2));
+        bottom_left.setUserData(new BtnData(2, 0));
+        bottom_center.setUserData(new BtnData(2, 1));
+        bottom_right.setUserData(new BtnData(2, 2));
     }
 
     @FXML
