@@ -18,39 +18,39 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button id="center_middle" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button id="center_middle" fx:id="mid_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="top_left" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css">
+      <Button id="top_left" fx:id="top_left" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="right_middle" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button id="right_middle" fx:id="mid_right" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="left_middle" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.rowIndex="1">
+      <Button id="left_middle" fx:id="mid_left" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="top_right" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="2">
+      <Button id="top_right" fx:id="top_right" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="top_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="1">
+      <Button id="top_center" fx:id="top_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="right_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button id="right_center" fx:id="bottom_right" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="bottom_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Button id="bottom_center" fx:id="bottom_center" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
             <Font size="64.0" />
          </font></Button>
-      <Button id="left_bottom" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" stylesheets="@com/example/tictactoe_/style.css" GridPane.rowIndex="2">
+      <Button id="left_bottom" fx:id="bottom_left" mnemonicParsing="false" onAction="#buttonEvent" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
          <font>
             <Font size="64.0" />
          </font></Button>
