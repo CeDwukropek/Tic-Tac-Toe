@@ -1,24 +1,40 @@
 package com.example.tictactoe_;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class HelloController {
-    @FXML
-    private Label welcomeText;
-    @FXML
-    private Button buttonTest;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-<<<<<<< Updated upstream
-    HelloController() {
-        buttonTest.setPercentWidth(100.0/horizontalGridCount);    
-    }
-
+public class HelloController implements Initializable {
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-=======
+    protected Button top_left;
+    @FXML
+    protected Button top_center;
+    @FXML
+    protected Button top_right;
+    @FXML
+    protected Button mid_left;
+    @FXML
+    protected Button mid_center;
+    @FXML
+    protected Button mid_right;
+    @FXML
+    protected Button bottom_left;
+    @FXML
+    protected Button bottom_center;
+    @FXML
+    protected Button bottom_right;
+    @FXML
+    protected Pane stackedPane;
+    @FXML
+    protected Label output;
+
 public class HelloController implements Initializable {
     @FXML
     protected Button top_left;
@@ -47,7 +63,6 @@ public class HelloController implements Initializable {
     Button[] btnTab;
     protected int[][] tab;
 
-    @FXML
     protected void buttonEvent(Event e) {
         if(this.turn) {
             move((Button)e.getSource(), "O");
@@ -60,7 +75,6 @@ public class HelloController implements Initializable {
         if(btn.getText().equals("X") || btn.getText().equals("O")) return;
         if(btn.getText().isEmpty()) {
             btn.setText(v);
-
             btn.getStyleClass().add(v.equals("O") ? "circle" : "cross");
 
             this.turn = !this.turn;
@@ -112,6 +126,7 @@ public class HelloController implements Initializable {
             x.getStyleClass().remove("circle");
             x.getStyleClass().remove("cross");
         }
+
 
         stackedPane.setVisible(false);
     }
@@ -181,6 +196,5 @@ public class HelloController implements Initializable {
         }
 
         stackedPane.setVisible(false);
->>>>>>> Stashed changes
     }
 }
