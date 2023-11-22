@@ -35,34 +35,11 @@ public class HelloController implements Initializable {
     @FXML
     protected Label output;
 
-public class HelloController implements Initializable {
-    @FXML
-    protected Button top_left;
-    @FXML
-    protected Button top_center;
-    @FXML
-    protected Button top_right;
-    @FXML
-    protected Button mid_left;
-    @FXML
-    protected Button mid_center;
-    @FXML
-    protected Button mid_right;
-    @FXML
-    protected Button bottom_left;
-    @FXML
-    protected Button bottom_center;
-    @FXML
-    protected Button bottom_right;
-    @FXML
-    protected Pane stackedPane;
-    @FXML
-    protected Label output;
-
     protected boolean turn = true;
     Button[] btnTab;
     protected int[][] tab;
 
+    @FXML
     protected void buttonEvent(Event e) {
         if(this.turn) {
             move((Button)e.getSource(), "O");
