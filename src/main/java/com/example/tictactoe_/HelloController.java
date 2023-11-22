@@ -35,10 +35,34 @@ public class HelloController implements Initializable {
     @FXML
     protected Label output;
 
+public class HelloController implements Initializable {
+    @FXML
+    protected Button top_left;
+    @FXML
+    protected Button top_center;
+    @FXML
+    protected Button top_right;
+    @FXML
+    protected Button mid_left;
+    @FXML
+    protected Button mid_center;
+    @FXML
+    protected Button mid_right;
+    @FXML
+    protected Button bottom_left;
+    @FXML
+    protected Button bottom_center;
+    @FXML
+    protected Button bottom_right;
+    @FXML
+    protected Pane stackedPane;
+    @FXML
+    protected Label output;
+
     protected boolean turn = true;
+    Button[] btnTab;
     protected int[][] tab;
 
-    @FXML
     protected void buttonEvent(Event e) {
         if(this.turn) {
             move((Button)e.getSource(), "O");
@@ -51,7 +75,7 @@ public class HelloController implements Initializable {
         if(btn.getText().equals("X") || btn.getText().equals("O")) return;
         if(btn.getText().isEmpty()) {
             btn.setText(v);
-            btn.getStyleClass().add("circle");
+            btn.getStyleClass().add(v.equals("O") ? "circle" : "cross");
 
             this.turn = !this.turn;
             BtnData coordinates = (BtnData) btn.getUserData();
@@ -97,15 +121,12 @@ public class HelloController implements Initializable {
                 {0, 0, 0}
         };
 
-        top_left.setText("");
-        top_center.setText("");
-        top_right.setText("");
-        mid_left.setText("");
-        mid_center.setText("");
-        mid_right.setText("");
-        bottom_left.setText("");
-        bottom_center.setText("");
-        bottom_right.setText("");
+        for (Button x : btnTab) {
+            x.setText("");
+            x.getStyleClass().remove("circle");
+            x.getStyleClass().remove("cross");
+        }
+
 
         stackedPane.setVisible(false);
     }
@@ -155,15 +176,24 @@ public class HelloController implements Initializable {
                 {0, 0, 0}
         };
 
-        top_left.setUserData(new BtnData(0, 0));
-        top_center.setUserData(new BtnData(0, 1));
-        top_right.setUserData(new BtnData(0, 2));
-        mid_left.setUserData(new BtnData(1, 0));
-        mid_center.setUserData(new BtnData(1, 1));
-        mid_right.setUserData(new BtnData(1, 2));
-        bottom_left.setUserData(new BtnData(2, 0));
-        bottom_center.setUserData(new BtnData(2, 1));
-        bottom_right.setUserData(new BtnData(2, 2));
+        this.btnTab = new Button[]{top_left,
+                top_center,
+                top_right,
+                mid_left,
+                mid_center,
+                mid_right,
+                bottom_left,
+                bottom_center,
+                bottom_right};
+
+        int id = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                btnTab[id].setUserData(new BtnData(i, j));
+                id++;
+            }
+        }
 
         stackedPane.setVisible(false);
     }
