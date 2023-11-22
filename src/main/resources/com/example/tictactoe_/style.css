@@ -1,0 +1,7 @@
+.circle {
+    -fx-text-fill: red;
+}
+
+.cross {
+    -fx-text-fill: blue;
+}
