@@ -4,14 +4,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -33,8 +30,13 @@ public class HelloController implements Initializable {
     protected Button bottom_center;
     @FXML
     protected Button bottom_right;
+    @FXML
+    protected Pane stackedPane;
+    @FXML
+    protected Label output;
+
     protected boolean turn = true;
-    protected boolean[][] tab;
+    protected int[][] tab;
 
     @FXML
     protected void buttonEvent(Event e) {
@@ -49,9 +51,11 @@ public class HelloController implements Initializable {
         if(btn.getText().equals("X") || btn.getText().equals("O")) return;
         if(btn.getText().isEmpty()) {
             btn.setText(v);
+            btn.getStyleClass().add("circle");
+
             this.turn = !this.turn;
-            BtnData cooridnates = (BtnData) btn.getUserData();
-            this.tab[cooridnates.x][cooridnates.y] = v.equals("O") ? true : false;
+            BtnData coordinates = (BtnData) btn.getUserData();
+            this.tab[coordinates.x][coordinates.y] = v.equals("O") ? 1 : -1;
 
             StringBuilder s;
             for (int i = 0; i < 3; i++)
@@ -59,31 +63,97 @@ public class HelloController implements Initializable {
                 s = new StringBuilder();
                 for (int z = 0; z < 3; z++)
                 {
-                    s.append(tab[i][z]);
+                    s.append("[");
+                    s.append(tab[i][z]).append(", ");
+                    s.append("]");
                 }
                 System.out.println(s);
-            }
 
-            if(checkWin()) {
+            }
+            System.out.println(" ");
+
+            int res = checkWin();
+
+            if(res == 1 || res == -1) {
                 System.out.println(v + " win");
-                ((Stage) btn.getScene().getWindow()).close();
+                stackedPane.setVisible(true);
+                output.setText(v + " win");
+            } else if (res == 2) {
+                System.out.println("Draw");
+                stackedPane.setVisible(true);
+                output.setText("Draw");
             }
         }
     }
 
-    boolean checkWin() {
-        if (this.tab[0][0] && this.tab[0][1] && this.tab[0][2]) return true;
-        if (!this.tab[0][0] && !this.tab[0][1] && !this.tab[0][2]) return false;
+    public void exit(Event e) {
+        ((Stage)((Button)e.getSource()).getScene().getWindow()).close();
+    }
 
-        return false;
+    public void playAgain() {
+        this.tab = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+        };
+
+        top_left.setText("");
+        top_center.setText("");
+        top_right.setText("");
+        mid_left.setText("");
+        mid_center.setText("");
+        mid_right.setText("");
+        bottom_left.setText("");
+        bottom_center.setText("");
+        bottom_right.setText("");
+
+        stackedPane.setVisible(false);
+    }
+
+    int checkWin() {
+        if (this.tab[0][0] == 1 && this.tab[0][1] == 1 && this.tab[0][2] == 1) return 1;
+        if (this.tab[0][0] == -1 && this.tab[0][1] == -1 && this.tab[0][2] == -1) return -1;
+        if (this.tab[1][0] == 1 && this.tab[1][1] == 1 && this.tab[1][2] == 1) return 1;
+        if (this.tab[1][0] == -1 && this.tab[1][1] == -1 && this.tab[1][2] == -1) return -1;
+        if (this.tab[2][0] == 1 && this.tab[2][1] == 1 && this.tab[2][2] == 1) return 1;
+        if (this.tab[2][0] == -1 && this.tab[2][1] == -1 && this.tab[2][2] == -1) return -1;
+
+        if (this.tab[0][0] == 1 && this.tab[1][0] == 1 && this.tab[2][0] == 1) return 1;
+        if (this.tab[0][0] == -1 && this.tab[1][0] == -1 && this.tab[2][0] == -1) return -1;
+        if (this.tab[0][1] == 1 && this.tab[1][1] == 1 && this.tab[2][1] == 1) return 1;
+        if (this.tab[0][1] == -1 && this.tab[1][1] == -1 && this.tab[2][1] == -1) return -1;
+        if (this.tab[0][2] == 1 && this.tab[1][2] == 1 && this.tab[2][2] == 1) return 1;
+        if (this.tab[0][2] == -1 && this.tab[1][2] == -1 && this.tab[2][2] == -1) return -1;
+
+        if (this.tab[0][0] == 1 && this.tab[1][1] == 1 && this.tab[2][2] == 1) return 1;
+        if (this.tab[0][0] == -1 && this.tab[1][1] == -1 && this.tab[2][2] == -1) return 1;
+        if (this.tab[2][0] == 1 && this.tab[1][1] == 1 && this.tab[0][2] == 1) return 1;
+        if (this.tab[2][0] == -1 && this.tab[1][1] == -1 && this.tab[0][2] == -1) return 1;
+
+        boolean flag = true;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tab[i][j] == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        System.out.println(flag);
+
+        if (!flag) return 0;
+        return 2;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.tab = new boolean[][]{
-                {Boolean.parseBoolean(null), Boolean.parseBoolean(null), Boolean.parseBoolean(null)},
-                {Boolean.parseBoolean(null), Boolean.parseBoolean(null), Boolean.parseBoolean(null)},
-                {Boolean.parseBoolean(null), Boolean.parseBoolean(null), Boolean.parseBoolean(null)}};
+        this.tab = new int[][]{
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+        };
 
         top_left.setUserData(new BtnData(0, 0));
         top_center.setUserData(new BtnData(0, 1));
@@ -94,5 +164,7 @@ public class HelloController implements Initializable {
         bottom_left.setUserData(new BtnData(2, 0));
         bottom_center.setUserData(new BtnData(2, 1));
         bottom_right.setUserData(new BtnData(2, 2));
+
+        stackedPane.setVisible(false);
     }
 }
