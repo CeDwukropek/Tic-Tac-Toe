@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
+import java.util.Random;
 
 public class GameWindow implements Initializable {
     @FXML
@@ -42,20 +45,30 @@ public class GameWindow implements Initializable {
 
     protected boolean turn = true;
     Button[] btnTab;
+    ArrayList<Button> btnTab_copy = new ArrayList<>();
     protected int[][] tab;
     private Stage stage;
+    protected Random rand = new Random();
+    protected int win;
 
     @FXML
     protected void buttonEvent(Event e) {
         if(this.turn) {
+            if(((Button)e.getSource()).getText().equals("X") || ((Button)e.getSource()).getText().equals("O")) return;
+
             move((Button)e.getSource(), "O");
+            btnTab_copy.remove((Button)e.getSource());
+            if(MenuWindow.bot && win == 0) {
+                int random = rand.nextInt(btnTab_copy.size());
+                move(btnTab_copy.get(random), "X");
+                btnTab_copy.remove(random);
+            }
         } else {
             move((Button)e.getSource(), "X");
         }
     }
 
     public void move(Button btn, String v) {
-        if(btn.getText().equals("X") || btn.getText().equals("O")) return;
         if(btn.getText().isEmpty()) {
             btn.setText(v);
             btn.getStyleClass().add(v.equals("O") ? "circle" : "cross");
@@ -74,19 +87,14 @@ public class GameWindow implements Initializable {
                     s.append(tab[i][z]).append(", ");
                     s.append("]");
                 }
-                System.out.println(s);
-
             }
-            System.out.println(" ");
 
-            int res = checkWin();
+            win = checkWin();
 
-            if(res == 1 || res == -1) {
-                System.out.println(v + " win");
+            if(win == 1 || win == -1) {
                 stackedPane.setVisible(true);
                 output.setText(v + " win");
-            } else if (res == 2) {
-                System.out.println("Draw");
+            } else if (win == 2) {
                 stackedPane.setVisible(true);
                 output.setText("Draw");
             }
@@ -145,15 +153,13 @@ public class GameWindow implements Initializable {
             }
         }
 
-        System.out.println(flag);
-
         if (!flag) return 0;
         return 2;
     }
 
     public void menuWindow(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("menuWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Scene scene = new Scene(fxmlLoader.load());
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setTitle("Game");
         stage.setScene(scene);
@@ -168,7 +174,8 @@ public class GameWindow implements Initializable {
                 {0, 0, 0}
         };
 
-        this.btnTab = new Button[]{top_left,
+        this.btnTab = new Button[]{
+                top_left,
                 top_center,
                 top_right,
                 mid_left,
@@ -178,6 +185,10 @@ public class GameWindow implements Initializable {
                 bottom_center,
                 bottom_right};
 
+        this.btnTab_copy = new ArrayList<>();
+
+        Collections.addAll(btnTab_copy, btnTab);
+
         int id = 0;
 
         for (int i = 0; i < 3; i++) {
@@ -185,6 +196,11 @@ public class GameWindow implements Initializable {
                 btnTab[id].setUserData(new BtnData(i, j));
                 id++;
             }
+        }
+
+        for (Button btn : btnTab) {
+            String style = String.format("-fx-background-color: %s;", MenuWindow.buttonColor);
+            btn.setStyle(style);
         }
 
         stackedPane.setVisible(false);
