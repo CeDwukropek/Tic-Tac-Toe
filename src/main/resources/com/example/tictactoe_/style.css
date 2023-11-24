@@ -5,3 +5,7 @@
 .cross {
     -fx-text-fill: blue;
 }
+
+.buttonBG {
+    -fx-background-color: -button-color;
+}
